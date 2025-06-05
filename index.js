@@ -12,16 +12,8 @@ const app = express();
 
 const JWT_SECRET = process.env.JWT_SECRET || "CHANGE_ME_URGENTLY";
 
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://nucleocr-frontend-iju0907k9-hallajents-projects.vercel.app"
-    ],
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+// ✅ Autoriser toutes les origines (temporairement pour le test)
+app.use(cors());
 
 app.use(express.json());
 
