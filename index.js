@@ -10,15 +10,19 @@ import axios from "axios";
 dotenv.config();
 const app = express();
 
-const JWT_SECRET = process.env.JWT_SECRET || "CHANGE_ME_URGENTLY"; // Mets une vraie valeur en prod
+const JWT_SECRET = process.env.JWT_SECRET || "CHANGE_ME_URGENTLY";
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // ⚠️ Remplace par ton URL frontend Vercel après déploiement
+    origin: [
+      "http://localhost:5173",
+      "https://nucleocr-frontend-iju0907k9-hallajents-projects.vercel.app"
+    ],
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 app.use(express.json());
 
 // ========== ROUTE DE LOGIN ==========
@@ -76,7 +80,7 @@ app.post("/ask-nucleocr", authenticateJWT, async (req, res) => {
     const response = await axios.post(
       "https://api.openai.com/v1/chat/completions",
       {
-        model: "gpt-3.5-turbo", // ou ton modèle perso
+        model: "gpt-3.5-turbo",
         messages,
       },
       {
